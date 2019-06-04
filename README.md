@@ -1,3 +1,39 @@
+#### Vytvoření aplikace
+```bash
+yarn create react-app my-app 
+yarn add redux
+yarn add reactstrap
+yarn add redux-devtools-extension
+yarn add redux-saga
+yarn add react-router-dom
+yarn add bootstrap
+```
+#### GIT
+
+**Inicializace GITu: **
+
+```bash
+git init 
+
+```
+**Přidání všech souborů do GITu 
+**
+```bash
+git add . 
+
+``` 
+
+**Nahrání lokálního repozitáře do vzdáleného 
+**
+```bash
+git remote add origin https://github.com/pepe999/party-games.git 
+git push -u origin master 
+```
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
