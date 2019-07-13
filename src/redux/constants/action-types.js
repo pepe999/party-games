@@ -1,0 +1,3 @@
+export const NACTI_HLASKY = "NACTI_HLASKY";
+export const NACTI_HLASKY_SAGA = "NACTI_HLASKY_SAGA";
+export const DALSI_HLASKA = "DALSI_HLASKA";
