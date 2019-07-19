@@ -1,5 +1,12 @@
 import React from "react";
 
+// import { connect } from 'react-redux'
+// import { compose } from 'redux'
+
+import MenuItems from '../../../../constants/menu-items'
+
+import { withRouter } from 'react-router-dom'
+
 import {
   Collapse,
   Navbar,
@@ -14,6 +21,9 @@ import {
   DropdownItem
 } from "reactstrap";
 
+const { hlaskyLinks } = MenuItems
+
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -23,13 +33,40 @@ class Header extends React.Component {
       isOpen: false
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
 
+  renderHlaskyLinks = () => {
+      const { history } = this.props
+
+      return hlaskyLinks.map((menuItem: MenuItem) => {
+        const { to, label } = menuItem
+        const handleOnClickLink = () => history.push(to)
+
+        const item = 
+            <DropdownItem
+              onClick={handleOnClickLink}
+              key={to}>
+              {label}
+            </DropdownItem>
+        return item
+      })
+    }
+
   render() {
+
+    const { history } = this.props
+
+    const handleOnClickLink2 = () => (history.push("hello"))
+    
+    const {
+      renderHlaskyLinks,
+    } = this
+
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -38,7 +75,7 @@ class Header extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/hello/">Hello</NavLink>
+                <NavLink onClick={handleOnClickLink2}>Hello</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/toast/">toast</NavLink>
@@ -53,9 +90,7 @@ class Header extends React.Component {
                   Hlášky
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem href="/ceske_hlasky/">české filmy</DropdownItem>
-                  <DropdownItem href="/api/">Fetching API</DropdownItem>
-                  <DropdownItem href="/form/">Form</DropdownItem>
+                {renderHlaskyLinks()}
                   <DropdownItem divider />
                   <DropdownItem>Reset</DropdownItem>
                 </DropdownMenu>
@@ -103,7 +138,13 @@ class Header extends React.Component {
   }
 }
 
+// const mapStateToProps = (state: State) => ({
 
+// })
 
+// const mapDispatchToProps = {
 
-export default Header;
+// }
+
+export default withRouter(Header)
+
