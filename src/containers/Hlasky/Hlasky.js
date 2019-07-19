@@ -8,8 +8,7 @@ import ReactPlayer from 'react-player'
 
 import { nactiHlaskySaga, dalsiHlaska } from "../../redux/actions/index";
 
-import { Button } from "reactstrap";
-
+import { Container, Row, Col, Button } from 'reactstrap';
 
 
 const mapStateToProps = state => {
@@ -45,7 +44,7 @@ class connectedHlasky extends React.Component{
   }
 
   handleShowVideo(e) {  
-    this.state.videoHeight === "0px" ? this.setState({videoHeight: "300px"}) : this.setState({videoHeight: "0px"}); 
+    this.state.videoHeight === "0px" ? this.setState({videoHeight: "200%"}) : this.setState({videoHeight: "0px"}); 
   }
   
   // dodělat přepisování start/stop + pokud video dohraje - nastavit state na playing false
@@ -56,9 +55,7 @@ class connectedHlasky extends React.Component{
   handleNext(e) {  
     if (this.props.aktHlaska != null){
       this.props.dalsiHlaska(this.props.aktHlaska.id);
-    }
-    
-    // this.state.videoHeight === "0px" ? this.setState({videoHeight: "300px"}) : this.setState({videoHeight: "0px"}); 
+    }    
   } 
   
   handleAnswer(e) {  
@@ -67,21 +64,35 @@ class connectedHlasky extends React.Component{
 
   render() {
     return (
-      <div>
-        { this.state.answer && this.props.aktHlaska != null && this.props.aktHlaska.nazev}
-         <Button onClick={(e) => this.handleShowVideo(e)}>{this.state.videoHeight === "0px" ? "zobrazit video" : "skrýt video"}</Button>
-
-        { this.state.loaded && this.props.aktHlaska != null && <ReactPlayer 
+      <Container>
+        <Row>
+          <Col xl={{ size: 8, offset: 2 }}>
+            <Button onClick={(e) => this.handleShowVideo(e)}>{this.state.videoHeight === "0px" ? "zobrazit video" : "skrýt video"}</Button>
+            &nbsp; 
+            <Button onClick={(e) => this.handleNext(e)}>další hláška</Button>
+            &nbsp;
+            <Button onClick={(e) => this.handlePlay(e)}>start/stop</Button>
+            &nbsp;
+            <Button onClick={(e) => this.handleAnswer(e)}>zobrazit/skrýt odpověď</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col xl={{ size: 8, offset: 2 }}>
+            { this.state.answer && this.props.aktHlaska != null && this.props.aktHlaska.nazev}
+          </Col>
+        </Row>
+        <br />
+         <Row>
+          <Col xl={{ size: 8, offset: 2 }}>
+            { this.state.loaded && this.props.aktHlaska != null && <ReactPlayer 
                                                           url={this.props.aktHlaska.url} 
                                                           height={this.state.videoHeight} 
+                                                          width={"100%"} 
                                                           playing={this.state.playing} /> } 
-         
-         <Button onClick={(e) => this.handleNext(e)}>další hláška</Button>
-
-         <Button onClick={(e) => this.handlePlay(e)}>start/stop</Button>
-
-         <Button onClick={(e) => this.handleAnswer(e)}>zobrazit/skrýt odpověď</Button>
-      </div>
+          </Col>
+        </Row>
+        
+      </Container>
     )
   }
 }
